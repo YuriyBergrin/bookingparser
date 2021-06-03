@@ -58,7 +58,6 @@ public class Parser extends ParserFather {
             link = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"js-sr-hotel-link\")])[%s]", i)), "href");
             region = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i))).replaceAll("Показать на карте", "").trim();
             coordinates = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i)), "data-coords");
-//            stars = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-rating bui-rating--smaller\")])[%s]", i)), "aria-label").replaceAll(".+ ", "").trim();
             type = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//strong)[%s]", i))).trim();
             price = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-price-display__value prco-inline-block-maker-helper\")])[%s]", i))).trim();
 
@@ -135,9 +134,7 @@ public class Parser extends ParserFather {
             }
 
         try {
-            //
             String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
-            //
             FileOutputStream outputStream = new FileOutputStream
                     (dateManager.getCurrentDatePlusDays(0) + "_СТАТИСТИКА_ЦЕН_НА_ОТЕЛИ_" + hotelClass +
                             "_ЗВЕЗД_БРОНЬ_ЗА_" + bookType + "_ДНЕЙ_" + country + ".xls");
