@@ -76,62 +76,59 @@ public class Parser extends ParserFather {
             row1.createCell(8).setCellValue("3");
         }
 
-            if ($(".bui-pagination__next-arrow").isDisplayed()) {
+        if ($(".bui-pagination__next-arrow").isDisplayed()) {
 
 
-                $(".bui-pagination__next-arrow").click();
+            $(".bui-pagination__next-arrow").click();
 
-                boolean flag = true;
-                rowNum = 2;
+            boolean flag = true;
+            rowNum = 2;
 
-                while (flag) {
+            while (flag) {
 
+                hotelItems = $$(".sr_item");
+                int size = hotelItems.size();
+
+
+                for (int i = 1; i < size; i++) {
                     hotelItems = $$(".sr_item");
-                    int size = hotelItems.size();
+                    size = hotelItems.size();
 
+                    String name, link, region, coordinates, stars, type, price;
+                    name = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"sr-hotel__name\")])[%s]", i))).trim();
+                    link = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"js-sr-hotel-link\")])[%s]", i)), "href");
+                    region = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i))).replaceAll("Показать на карте", "").trim();
+                    coordinates = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i)), "data-coords");
+                    type = retryingGetTextWithNoSuchEx($x(String.format("(//*[@class=\"c-beds-configuration\"])[%s]", i))).trim();
+                    price = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-price-display__value prco-inline-block-maker-helper\")])[%s]", i))).trim();
 
-                    for (int i = 1; i < size; i++) {
-                        hotelItems = $$(".sr_item");
-                        size = hotelItems.size();
+                    double dPrice = Double.parseDouble(price.replaceAll("[^0-9]", "").trim()) / 3;
+                    region = region.replaceAll("район", "");
 
-                        String name, link, region, coordinates, stars, type, price;
-                        name = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"sr-hotel__name\")])[%s]", i))).trim();
-                        link = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"js-sr-hotel-link\")])[%s]", i)), "href");
-                        region = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i))).replaceAll("Показать на карте", "").trim();
-                        coordinates = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i)), "data-coords");
-                        //                stars = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-rating bui-rating--smaller\")])[%s]", i)), "aria-label").replaceAll(".+ ", "").trim();
+                    Row row1 = sheet.createRow(rowNum);
+                    row1.createCell(0).setCellValue(name);
+                    row1.createCell(1).setCellValue(link);
+                    row1.createCell(2).setCellValue(region.replaceAll(".+ ", ""));
+                    row1.createCell(3).setCellValue(apiHelper.getRegion(coordinates));
+                    row1.createCell(4).setCellValue(hotelClass);
+                    row1.createCell(5).setCellValue(String.format("за %s дней", bookType));
+                    row1.createCell(6).setCellValue(type);
+                    row1.createCell(7).setCellValue(dPrice);
+                    row1.createCell(8).setCellValue("3");
 
-                        //                type = retryingGetTextWithNoSuchEx($x(String.format("(//div[contains(@class,\"sr_item \")]//strong)[%s]", i))).trim(); todo
-                        type = retryingGetTextWithNoSuchEx($x(String.format("(//*[@class=\"c-beds-configuration\"])[%s]", i))).trim();
-                        price = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-price-display__value prco-inline-block-maker-helper\")])[%s]", i))).trim();
+                    rowNum++;
 
-                        double dPrice = Double.parseDouble(price.replaceAll("[^0-9]", "").trim()) / 3;
-                        region = region.replaceAll("район", "");
+                }
 
-                        Row row1 = sheet.createRow(rowNum);
-                        row1.createCell(0).setCellValue(name);
-                        row1.createCell(1).setCellValue(link);
-                        row1.createCell(2).setCellValue(region.replaceAll(".+ ", ""));
-                        row1.createCell(3).setCellValue(apiHelper.getRegion(coordinates));
-                        row1.createCell(4).setCellValue(hotelClass);
-                        row1.createCell(5).setCellValue(String.format("за %s дней", bookType));
-                        row1.createCell(6).setCellValue(type);
-                        row1.createCell(7).setCellValue(dPrice);
-                        row1.createCell(8).setCellValue("3");
-
-                        rowNum++;
-
-                    }
-
-                    if ($(".bui-pagination__item--disabled span").isDisplayed()) {
-                        flag = false;
-                        break;
-                    } else {
-                        $(".bui-pagination__next-arrow").click();
-                        pause();
-                    }
+                if ($(".bui-pagination__item--disabled span").isDisplayed()) {
+                    flag = false;
+                    break;
+                } else {
+                    $(".bui-pagination__next-arrow").click();
+                    pause();
                 }
             }
+        }
 
         try {
             String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
