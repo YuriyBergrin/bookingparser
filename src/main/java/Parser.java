@@ -37,8 +37,8 @@ public class Parser extends ParserFather {
 
 
         Configuration.startMaximized = true;
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
-//        Configuration.holdBrowserOpen = true;
+//        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+        Configuration.holdBrowserOpen = true;
 //        Configuration.headless = true;
         Selenide.clearBrowserCookies();
         open(getUrl(bookType, dest_id));
@@ -53,7 +53,7 @@ public class Parser extends ParserFather {
         List<SelenideElement> hotelItems = $$(".sr_item");
 
         for (int i = 1; i <= hotelItems.size(); i++) {
-            String name, link, region, coordinates, stars, type, price;
+            String name, link, region, coordinates, type, price;
             name = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"sr-hotel__name\")])[%s]", i))).trim();
             link = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"js-sr-hotel-link\")])[%s]", i)), "href");
             region = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i))).replaceAll("Показать на карте", "").trim();
@@ -77,18 +77,15 @@ public class Parser extends ParserFather {
         }
 
         if ($(".bui-pagination__next-arrow").isDisplayed()) {
-
-
             $(".bui-pagination__next-arrow").click();
 
-            boolean flag = true;
+//            boolean flag = true; todo
             rowNum = 2;
 
-            while (flag) {
+            while (true) {
 
                 hotelItems = $$(".sr_item");
                 int size = hotelItems.size();
-
 
                 for (int i = 1; i < size; i++) {
                     hotelItems = $$(".sr_item");
@@ -121,7 +118,7 @@ public class Parser extends ParserFather {
                 }
 
                 if ($(".bui-pagination__item--disabled span").isDisplayed()) {
-                    flag = false;
+//                    flag = false;//todo
                     break;
                 } else {
                     $(".bui-pagination__next-arrow").click();

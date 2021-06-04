@@ -24,7 +24,7 @@ public class BookingParser {
             }
             parser.setHotels(days, stars, place);
         } else {
-            int[] daysArray = {3, 15, 30};
+            int[] daysArray = {30, 15, 3};
             int[] starsArray = {0, 1, 2, 3, 4, 5};
             int[] placeArray = {176, 507};
 
