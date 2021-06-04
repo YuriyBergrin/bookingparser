@@ -19,7 +19,8 @@ public class Parser extends ParserFather {
 
     public void setHotels(int bookType, int hotelClass, int dest_id) {
         ApiHelper apiHelper = new ApiHelper();
-        System.out.println("бронь за " + bookType + " звезд " + hotelClass);
+        String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
+        System.out.println("бронь за " + bookType + "дней звезд у отеля " + hotelClass + " место - " + country);
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Статистика по отелям и хостелам");
 
@@ -128,7 +129,7 @@ public class Parser extends ParserFather {
         }
 
         try {
-            String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
+//            String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
             FileOutputStream outputStream = new FileOutputStream
                     (dateManager.getCurrentDatePlusDays(0) + "_СТАТИСТИКА_ЦЕН_НА_ОТЕЛИ_" + hotelClass +
                             "_ЗВЕЗД_БРОНЬ_ЗА_" + bookType + "_ДНЕЙ_" + country + ".xls");

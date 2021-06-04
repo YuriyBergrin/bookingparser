@@ -22,7 +22,12 @@ public class ParserFather {
         int attempts = 0;
         while (attempts < 10) {
             try {
-                value = element.getAttribute(attribute);
+                if (element.isDisplayed()) {
+                    value = element.getAttribute(attribute);
+                } else {
+                    value = "0.0000";
+                }
+//                value = element.getAttribute(attribute); todo
                 break;
             } catch (StaleElementReferenceException e) {
             }

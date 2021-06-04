@@ -22,8 +22,8 @@ public class ApiHelper {
                 given()
                         .baseUri("https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/")
                         .header("Content-Type", "application/json")
-                        .header("Authorization", "Token 3b15d1edb501c78d46f73c52739a49e7381dde42")
-//                        .header("Authorization","Token 649f14340d58fa56c0785868a39f2ec9565f05dd")
+//                        .header("Authorization", "Token 3b15d1edb501c78d46f73c52739a49e7381dde42")//fresh token
+                        .header("Authorization","Token 649f14340d58fa56c0785868a39f2ec9565f05dd")//old token
                         .param("lat", lat)
                         .param("lon", lon)
                         .get("address");
