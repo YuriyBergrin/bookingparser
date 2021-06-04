@@ -28,10 +28,18 @@ public class BookingParser {
             int[] starsArray = {0, 1, 2, 3, 4, 5};
             int[] placeArray = {176, 507};
 
-            for (int i = 0; i < daysArray.length; i++) {
-                for (int j = 0; j < starsArray.length; j++) {
-                    for (int k = 0; k < placeArray.length; k++) {
-                        parser.setHotels(daysArray[i], starsArray[j], placeArray[k]);
+//            for (int i = 0; i < daysArray.length; i++) {
+//                for (int j = 0; j < starsArray.length; j++) {
+//                    for (int k = 0; k < placeArray.length; k++) {
+//                        parser.setHotels(daysArray[i], starsArray[j], placeArray[k]);
+//                    }
+//                }
+//            }
+
+            for (int i = 0; i < placeArray.length; i++) {
+                for (int j = 0; j < daysArray.length; j++) {
+                    for (int k = 0; k < starsArray.length; k++) {
+                        parser.setHotels(daysArray[j], starsArray[k], placeArray[i]);
                     }
                 }
             }
