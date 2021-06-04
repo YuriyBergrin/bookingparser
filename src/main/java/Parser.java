@@ -20,7 +20,7 @@ public class Parser extends ParserFather {
     public void setHotels(int bookType, int hotelClass, int dest_id) {
         ApiHelper apiHelper = new ApiHelper();
         String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
-        System.out.println("бронь за " + bookType + "дней звезд у отеля " + hotelClass + " место - " + country);
+        System.out.println("бронь за " + bookType + " дней звезд у отеля " + hotelClass + " место - " + country);
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Статистика по отелям и хостелам");
 
@@ -38,8 +38,8 @@ public class Parser extends ParserFather {
 
 
         Configuration.startMaximized = true;
-//        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
-        Configuration.holdBrowserOpen = true;
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+//        Configuration.holdBrowserOpen = true;
 //        Configuration.headless = true;
         Selenide.clearBrowserCookies();
         open(getUrl(bookType, dest_id));

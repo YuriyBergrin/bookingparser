@@ -39,7 +39,12 @@ public class BookingParser {
             for (int i = 0; i < placeArray.length; i++) {
                 for (int j = 0; j < daysArray.length; j++) {
                     for (int k = 0; k < starsArray.length; k++) {
-                        parser.setHotels(daysArray[j], starsArray[k], placeArray[i]);
+                        try {
+                            parser.setHotels(daysArray[j], starsArray[k], placeArray[i]);
+                        } catch (Error error) {
+                            System.out.println("НЕУДАЧНАЯ ПОПЫТКА ДЛЯ БРОНИРОВАНИЯ ЗА " + daysArray[j] + "  - ДНЕЙ "
+                                    + starsArray[k] + "  - ЗВЕЗД " + placeArray[i] + " - МЕСТО");
+                        }
                     }
                 }
             }
