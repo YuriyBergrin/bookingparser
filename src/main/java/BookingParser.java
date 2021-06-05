@@ -24,8 +24,8 @@ public class BookingParser {
             }
             parser.setHotels(days, stars, place);
         } else {
-            int[] daysArray = {30, 15, 3};
-            int[] starsArray = {0, 1, 2, 3, 4, 5};
+            int[] daysArray = {30, 15, 3};//15
+            int[] starsArray = {0, 1, 2, 3, 4, 5};//4
             int[] placeArray = {176, 507};
 
 //            for (int i = 0; i < daysArray.length; i++) {
@@ -47,7 +47,8 @@ public class BookingParser {
                         }
                     }
                 }
-            }
+            }//последний
+
         }
         System.out.println("Finish " + manager.getCurrentTime());
     }

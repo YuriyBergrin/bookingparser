@@ -18,7 +18,7 @@ public class DateManager {
     }
 
     public String getCurrentMonthPlusDays(int days) {
-        instance.setTime(new Date()); //устанавливаем дату, с которой будет производить операции
+        instance.setTime(new Date()); //устанавливаем дату, с которой будет производить  операции
         instance.add(Calendar.DAY_OF_MONTH, days);// прибавляем 3 дня к установленной дате
         Date newDate = instance.getTime(); // получаем измененную дату
         return dateFormatMM.format(newDate);

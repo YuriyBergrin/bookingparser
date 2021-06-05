@@ -7,7 +7,11 @@ public class ParserFather {
         int attempts = 0;
         while (attempts < 10) {
             try {
-                value = element.getText();
+                if (element.isDisplayed()) {
+                    value = element.getText();
+                } else {
+                    value = "null";
+                }
                 break;
             } catch (StaleElementReferenceException e) {
             }

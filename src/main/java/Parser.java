@@ -38,7 +38,7 @@ public class Parser extends ParserFather {
 
 
         Configuration.startMaximized = true;
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+//        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
 //        Configuration.holdBrowserOpen = true;
 //        Configuration.headless = true;
         Selenide.clearBrowserCookies();
@@ -59,10 +59,17 @@ public class Parser extends ParserFather {
             link = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"js-sr-hotel-link\")])[%s]", i)), "href");
             region = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i))).replaceAll("Показать на карте", "").trim();
             coordinates = retryingGetAttribute($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"r_card_address_line\")]/a)[%s]", i)), "data-coords");
-            type = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//strong)[%s]", i))).trim();
+//            type = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//strong)[%s]", i))).trim();
+            type = retryingGetText($x(String.format("(//*[@class=\"roomNameInner\"]//span[@role=\"link\"])[%s]", i))).trim();
             price = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-price-display__value prco-inline-block-maker-helper\")])[%s]", i))).trim();
 
-            double dPrice = Double.parseDouble(price.replaceAll("[^0-9]", "").trim()) / 3;
+            double dPrice;
+            try {
+                dPrice = Double.parseDouble(price.replaceAll("[^0-9]", "").trim()) / 3;
+            } catch (NumberFormatException e) {
+                dPrice = 0;
+            }
+
             region = region.replaceAll("район", "");
             rowNum = 1;
             Row row1 = sheet.createRow(rowNum);
@@ -100,7 +107,12 @@ public class Parser extends ParserFather {
                     type = retryingGetTextWithNoSuchEx($x(String.format("(//*[@class=\"c-beds-configuration\"])[%s]", i))).trim();
                     price = retryingGetText($x(String.format("(//div[contains(@class,\"sr_item \")]//*[contains(@class,\"bui-price-display__value prco-inline-block-maker-helper\")])[%s]", i))).trim();
 
-                    double dPrice = Double.parseDouble(price.replaceAll("[^0-9]", "").trim()) / 3;
+                    double dPrice;
+                    try {
+                        dPrice = Double.parseDouble(price.replaceAll("[^0-9]", "").trim()) / 3;
+                    } catch (NumberFormatException e) {
+                        dPrice = 0;
+                    }
                     region = region.replaceAll("район", "");
 
                     Row row1 = sheet.createRow(rowNum);
