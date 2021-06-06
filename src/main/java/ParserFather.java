@@ -31,7 +31,6 @@ public class ParserFather {
                 } else {
                     value = "0.0000";
                 }
-//                value = element.getAttribute(attribute); todo
                 break;
             } catch (StaleElementReferenceException e) {
             }

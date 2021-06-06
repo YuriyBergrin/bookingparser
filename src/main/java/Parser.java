@@ -87,7 +87,6 @@ public class Parser extends ParserFather {
         if ($(".bui-pagination__next-arrow").isDisplayed()) {
             $(".bui-pagination__next-arrow").click();
 
-//            boolean flag = true; todo
             rowNum = 2;
 
             while (true) {
@@ -131,7 +130,6 @@ public class Parser extends ParserFather {
                 }
 
                 if ($(".bui-pagination__item--disabled span").isDisplayed()) {
-//                    flag = false;//todo
                     break;
                 } else {
                     $(".bui-pagination__next-arrow").click();
