@@ -17,10 +17,10 @@ public class Parser extends ParserFather {
     private String url;
 
 
-    public void setHotels(int bookType, int hotelClass, int dest_id) {
+    public void setHotels(int bookType, int hotelClass, int dest_id, String token) {
         ApiHelper apiHelper = new ApiHelper();
         String country = dest_id == 176 ? "РОССИЯ" : "КРЫМ";
-        System.out.println("бронь за " + bookType + " дней звезд у отеля " + hotelClass + " место - " + country);
+        System.out.println("бронь за - " + bookType + " дней, звезд у отеля - " + hotelClass + ", место - " + country + " token= " + token);
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Статистика по отелям и хостелам");
 
@@ -38,7 +38,7 @@ public class Parser extends ParserFather {
 
 
         Configuration.startMaximized = true;
-//        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
 //        Configuration.holdBrowserOpen = true;
 //        Configuration.headless = true;
         Selenide.clearBrowserCookies();
@@ -76,7 +76,7 @@ public class Parser extends ParserFather {
             row1.createCell(0).setCellValue(name);
             row1.createCell(1).setCellValue(link);
             row1.createCell(2).setCellValue(region.replaceAll(".+ ", ""));
-            row1.createCell(3).setCellValue(apiHelper.getRegion(coordinates));
+            row1.createCell(3).setCellValue(apiHelper.getRegion(coordinates, token));
             row1.createCell(4).setCellValue(hotelClass);
             row1.createCell(5).setCellValue(String.format("за %s дней", bookType));
             row1.createCell(6).setCellValue(type);
@@ -119,7 +119,7 @@ public class Parser extends ParserFather {
                     row1.createCell(0).setCellValue(name);
                     row1.createCell(1).setCellValue(link);
                     row1.createCell(2).setCellValue(region.replaceAll(".+ ", ""));
-                    row1.createCell(3).setCellValue(apiHelper.getRegion(coordinates));
+                    row1.createCell(3).setCellValue(apiHelper.getRegion(coordinates, token));
                     row1.createCell(4).setCellValue(hotelClass);
                     row1.createCell(5).setCellValue(String.format("за %s дней", bookType));
                     row1.createCell(6).setCellValue(type);
