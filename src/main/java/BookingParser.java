@@ -10,7 +10,7 @@ public class BookingParser {
         DateManager manager = new DateManager();
         Parser parser = new Parser();
         System.out.println("Start " + manager.getCurrentTime());
-        //country id россия - 176, Крым - 507 place=176 stars=0 days=15
+        //country id россия - 176, Крым - 507 place=176 stars=0 days=15, token=582fca0795183711ba5ea1799f5547026af51f87
         int place = 0;
         int stars = 0;
         int days = 0;
