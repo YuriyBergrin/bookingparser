@@ -7,7 +7,7 @@ public class DateManager {
     private SimpleDateFormat dateFormatMM = new SimpleDateFormat("MM");
     private SimpleDateFormat dateFormatDD = new SimpleDateFormat("dd");
     private SimpleDateFormat dateFormathh = new SimpleDateFormat("HH:mm:ss");
-    Calendar instance = Calendar.getInstance();
+    private Calendar instance = Calendar.getInstance();
 
     public String getCurrentDatePlusDays(int days) {
 
