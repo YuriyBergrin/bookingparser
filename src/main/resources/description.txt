@@ -1,0 +1,19 @@
+Инструкция к парсеру:
+1. Установите на машину selenoid и selenoid-ui -  https://aerokube.com/selenoid/latest/.
+2. Запустите приложение командой java -jar bookingparder.jar + параметры (Описаны далее).
+Описание:
+Для парсинга всех отелей задайте только selenoidurl, для параметризованного запуска задайте все параметры.
+
+Описание параметров:
+place - регион(176 - Россия, 507 - Крым)
+stars - кол-во звезд отеля от 0 до 5
+days - кол-во дней за которое производится бронь
+token - токен для dadata.ru
+selenoidurl - url selenoid
+
+Примеры команд запуска:
+1. Парсинг всех отелей: java -jar bookingparder.jar selenoidurl=http://127.0.0.1:4444/wd/hub
+2. Парсинг отелей с параметрами: java -jar bookingparder.jar place=176 stars=0 days=15
+token=582fca0795183711ba5ea1799f5547026af51f87 selenoidurl=http://127.0.0.1:4444/wd/hub
+
+В результате будут сформирован *.xls файлы с данными.

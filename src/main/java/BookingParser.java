@@ -1,5 +1,14 @@
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookingParser {
     //country id россия - 176, Крым - 507
@@ -11,7 +20,7 @@ public class BookingParser {
     private static final String token4 = "4f553c5fe41de9828a5bd9c329de24c37bff94ee";
     public static String SELENOID_URL = "http://127.0.1.1:4444/wd/hub/";//по умолчанию, если задан параметром, то изменится
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DateManager manager = new DateManager();
         Parser parser = new Parser();
         logger.info("Начинаем парсинг {}.", manager.getCurrentTime());
@@ -48,9 +57,10 @@ public class BookingParser {
             }//задаем параметры
             logger.info("Парсинг за {} дней, {} звезд, {} место, {} токен.", days, stars, place, token);
             parser.parseHotels(days, stars, place, token);//парсим букинг
+            logger.info("Парсинг закончен {}.", manager.getCurrentTime());
         }
 
-        if (args.length == 1 & args[0].contains("selenoidurl=")) {
+        if (args.length > 0 && args[0].contains("selenoidurl=")) {
             SELENOID_URL = args[0].replaceAll("selenoidurl=", "");
             logger.info("Парсинг по всем отелям.");
             int[] daysArray = {3, 15, 30};
@@ -70,8 +80,10 @@ public class BookingParser {
                     }
                 }
             }
+            logger.info("Парсинг закончен {}.", manager.getCurrentTime());
         }
-
-        logger.info("Парсинг закончен {}.", manager.getCurrentTime());
+        if (args.length == 0) {
+            logger.info("Парсинг не будет осуществлен. Задайте параметры.");
+        }
     }
 }
