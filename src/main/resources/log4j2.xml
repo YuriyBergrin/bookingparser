@@ -5,11 +5,11 @@
             <PatternLayout
                     pattern="%highlight{[%d{HH:mm:ss.SSS}] | %m |%n}{FATAL=red blink, ERROR=red blink, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue}"/>
         </Console>
-<!--        <File name="MyFile" fileName="logs.log">-->
-<!--            <PatternLayout>-->
-<!--                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>-->
-<!--            </PatternLayout>-->
-<!--        </File>-->
+        <File name="MyFile" fileName="logs.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Root level="info">
